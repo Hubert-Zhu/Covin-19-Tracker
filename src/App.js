@@ -19,7 +19,6 @@ import "leaflet/dist/leaflet.css";
 
 //utility funcitons
 import { sortData, prettyPrintStat } from "./util";
-import { set } from "numeral";
 
 function App() {
   const [country, setCountry] = useState("worldwide");
@@ -28,8 +27,8 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [casesType, setCasesType] = useState("cases");
-  const [mapCenter, setMapCenter] = useState({ lat: 34.8, lng: -40.47 });
-  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCenter] = useState({ lat: 34.8, lng: -40.47 });
+  const [mapZoom] = useState(3);
 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
@@ -80,7 +79,7 @@ function App() {
     <div className="app">
       <div className="app__left">
         <div className="app__header">
-          <h1>COVIn-19 Tracker</h1>
+          <h1>COVID-19 Tracker</h1>
 
           <FormControl className="app__dropdown">
             <Select
@@ -101,7 +100,8 @@ function App() {
             onClick={(e) => setCasesType("cases")}
             title="Coronavirus Cases"
             cases={prettyPrintStat(countryInfo.todayCases)}
-            total={countryInfo.cases}
+            total={prettyPrintStat(countryInfo.cases)}
+            isRed
           />
 
           <InfoBox
@@ -109,7 +109,7 @@ function App() {
             onClick={(e) => setCasesType("recovered")}
             title="Recovered"
             cases={prettyPrintStat(countryInfo.todayRecovered)}
-            total={countryInfo.recovered}
+            total={prettyPrintStat(countryInfo.recovered)}
           />
 
           <InfoBox
@@ -117,7 +117,8 @@ function App() {
             onClick={(e) => setCasesType("deaths")}
             title="Deaths"
             cases={prettyPrintStat(countryInfo.todayDeaths)}
-            total={countryInfo.deaths}
+            total={prettyPrintStat(countryInfo.deaths)}
+            isRed
           />
         </div>
 
@@ -134,7 +135,7 @@ function App() {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
           <h3>Worldwide new {casesType}</h3>
-          <LineGraph casesType={casesType} />
+          <LineGraph className="app__graph" casesType={casesType} />
         </CardContent>
       </Card>
     </div>
