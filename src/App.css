@@ -8,6 +8,7 @@ body {
 }
 
 .app {
+  padding-top: 40px;
   display: flex;
   justify-content: space-evenly;
 }
@@ -44,7 +45,7 @@ body {
 
 
 .app__right .MuiCardContent-root{
-  display: felx;
+  display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
@@ -52,7 +53,13 @@ body {
 
 .app__graph{
   flex-grow: 1;
+
 }
+
+.app__graph-title{
+  margin: 20px 0;
+}
+
 @media (max-width: 990px) {
   .app {
     flex-direction: column;
